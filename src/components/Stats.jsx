@@ -1,59 +1,69 @@
-import React, { useRef, useLayoutEffect } from 'react';
-import { gsap } from 'gsap';
+/* src/components/Stats.jsx */
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 gsap.registerPlugin(ScrollTrigger);
 
-const statsData = [
-  { value: 1200, label: 'Graduates' },
-  { value: 98, label: 'Percent Hired' },
-  { value: 40, label: 'Industry Partners' },
-];
+export default function Stats() {
+  const rootRef = useRef(null);
 
-const Stats = () => {
-  const sectionRef = useRef(null);
-
-  useLayoutEffect(() => {
-    const ctx = gsap.context(() => {
-      gsap.from(sectionRef.current.querySelectorAll('.stat-item'), {
-        opacity: 0,
-        y: 50,
-        duration: 0.8,
-        stagger: 0.2,
+  useEffect(() => {
+    let ctx = gsap.context(() => {
+      gsap.from(".stat-num", {
+        textContent: 0,
+        duration: 2.5,
+        ease: "power2.out",
+        snap: { textContent: 1 },
         scrollTrigger: {
-          trigger: sectionRef.current,
-          start: 'top 80%',
-          toggleActions: 'play none none reverse',
-          onEnter: () => {
-            sectionRef.current.querySelectorAll('.stat-number').forEach((el, index) => {
-              const endValue = statsData[index].value;
-              gsap.to(el, {
-                innerText: endValue,
-                duration: 2,
-                ease: 'power1.inOut',
-                snap: { innerText: 1 },
-              });
-            });
-          }
-        },
+          trigger: rootRef.current,
+          start: "top 70%",
+        }
       });
-    }, sectionRef);
-
+    }, rootRef);
     return () => ctx.revert();
   }, []);
 
   return (
-    <section ref={sectionRef} className="stats-section">
-      <div className="stats-container">
-        {statsData.map((stat, index) => (
-          <div key={index} className="stat-item">
-            <span className="stat-number">0</span>
-            <span className="stat-label">{stat.label}</span>
-          </div>
-        ))}
+    <section ref={rootRef} style={{ background: '#000', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
+        <video autoPlay muted loop playsInline style={{ width: '100%', height: '100%', objectFit: 'cover', opacity: 0.12, filter: 'grayscale(1)' }}>
+          <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-particles-of-blue-and-purple-light-moving-31652-large.mp4" type="video/mp4" />
+        </video>
+      </div>
+
+      <div style={{ position: 'relative', zIndex: 10, display: 'flex', flexDirection: 'row', justifyContent: 'space-around', alignItems: 'center', width: '95%', maxWidth: '1400px' }}>
+        
+        {/* Stat 1: Experience */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <p style={{ fontSize: '1rem', color: '#fff', textTransform: 'uppercase', letterSpacing: '0.6em', fontWeight: '900' }}>EXPERIENCE</p>
+          <div style={{ width: '150px', height: '3px', background: 'var(--color-neon)', boxShadow: '0 0 20px var(--color-neon)', margin: '25px 0' }}></div>
+          <h2 style={{ fontSize: 'clamp(4rem, 9vw, 7rem)', color: '#fff', fontWeight: '900', margin: '0' }}>
+            <span className="stat-num">20</span>+
+          </h2>
+          <p style={{ fontSize: '0.9rem', color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.2em', marginTop: '15px' }}>Years in Music</p>
+        </div>
+
+        {/* Stat 2: Students */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <p style={{ fontSize: '1rem', color: '#fff', textTransform: 'uppercase', letterSpacing: '0.6em', fontWeight: '900' }}>STUDENTS</p>
+          <div style={{ width: '150px', height: '3px', background: 'var(--color-neon)', boxShadow: '0 0 20px var(--color-neon)', margin: '25px 0' }}></div>
+          <h2 style={{ fontSize: 'clamp(4rem, 9vw, 7rem)', color: '#fff', fontWeight: '900', margin: '0' }}>
+            <span className="stat-num">4000</span>+
+          </h2>
+          <p style={{ fontSize: '0.9rem', color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.2em', marginTop: '15px' }}>Taught Worldwide</p>
+        </div>
+
+        {/* Stat 3: Serving */}
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <p style={{ fontSize: '1rem', color: '#fff', textTransform: 'uppercase', letterSpacing: '0.6em', fontWeight: '900' }}>SERVING</p>
+          <div style={{ width: '150px', height: '3px', background: 'var(--color-neon)', boxShadow: '0 0 20px var(--color-neon)', margin: '25px 0' }}></div>
+          <h2 style={{ fontSize: 'clamp(4rem, 9vw, 7rem)', color: '#fff', fontWeight: '900', margin: '0' }}>
+            <span className="stat-num">12</span>
+          </h2>
+          <p style={{ fontSize: '0.9rem', color: '#aaa', textTransform: 'uppercase', letterSpacing: '0.2em', marginTop: '15px' }}>Countries</p>
+        </div>
       </div>
     </section>
   );
-};
-
-export default Stats;
+}
