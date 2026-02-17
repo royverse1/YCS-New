@@ -8,7 +8,7 @@ import FounderNote from './components/FounderNote';
 import CourseFan from './components/CourseFan';
 import Stats from './components/Stats';
 import VibratingStrings from './components/VibratingStrings';
-import FAQ from './components/FAQ'; // Added
+import FAQ from './components/Faq'; // Added
 import Discounts from './components/Discounts'; 
 import Testimonials from './components/Testimonials';
 import Admissions from './components/Admissions';
