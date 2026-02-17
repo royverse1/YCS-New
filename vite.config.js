@@ -1,8 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+// https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react()],
-  // This is the critical line that fixes the white screen
-  base: './', 
+  base: '/YCS-New/', // This ensures assets load from the correct subfolder
 })
