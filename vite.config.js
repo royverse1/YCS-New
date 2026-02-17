@@ -1,8 +1,11 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
-// Replace 'YCS-New' with your exact repository name
-export default defineConfig({
-  plugins: [react()],
-  base: '/YCS-New/', 
+// https://vitejs.dev/config/
+export default defineConfig(({ command }) => {
+  const base = command === 'build' ? '/YCS-New/' : '/'
+  return {
+    plugins: [react()],
+    base: base,
+  }
 })
